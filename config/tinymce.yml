@@ -1,0 +1,34 @@
+default:
+  toolbar:
+    - styleselect | bold italic | undo redo
+    - image | link
+  plugins:
+    - image
+    - link
+
+chapter:
+  theme: "modern"
+  menubar:
+    -
+  toolbar:
+    - undo redo | bold italic underline strikethrough forecolor backcolor | alignleft aligncenter alignright alignjustify | styleselect | image link
+  plugins:
+    - image
+    - link
+    - textcolor
+    - code
+    - advlist
+    - autolink
+    - lists
+    - charmap
+    - preview
+    - fullscreen
+    - media
+    - table
+    - contextmenu
+    - paste
+
+alternate:
+  toolbar1: styleselect | bold italic | undo redo | table
+  plugins:
+    - table

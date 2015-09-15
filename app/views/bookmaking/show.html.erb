@@ -1,0 +1,65 @@
+<div class="row padding-top-20">
+	<div class="text-left col-md-6">
+		<% if @book.publish == false %>
+			<%= link_to 'Publier', publish_bookmaking_path(id: @book.id), :class => 'btn btn-primary' %>
+		<% end %>
+	</div>
+	<div class="text-right col-md-6">
+		<%= link_to 'Editer', edit_bookmaking_path(id: @book.id), :class => 'btn btn-default' %>
+		<%=link_to '' ,bookmaking_path(id: @book.id), :method => :delete, :class => 'btn btn-danger glyphicon glyphicon-trash', :confirm => 'êtes-vous sur de vouloir supprimer ce livre ?' %>
+	</div>
+</div>
+<div class="row padding-top-20">
+	<div class="col-sm-12 col-md-4">
+		<div class="thumbnail">
+			<img src="#" alt="#image">
+			<p class="text-right"><%= @book.price %> €</p>
+		</div>
+	</div>
+	<div class="col-sm-12 col-md-8">
+		<div class="thumbnail">
+			<div class="caption">
+				<h2 class="text-left bold"><%= @book.title %></h2>
+				<p class="text-justify"><%= @book.description %></p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<table class="table table-striped text-left">
+		<thead>
+			<tr class="bold">
+				<th>Numéro du chapitre</th>
+				<th>Title</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% if @chapters != nil %>
+				<% @chapters.each do |chapter| %>
+				<tr class="list-chapter chapter-<%= chapter.id %>">
+					<th scope="row"><%= chapter.nb_chapter %></th>
+					<td><%= chapter.title %></td>
+					<td>
+						<%= link_to edit_chapter_bookmaking_path(id: chapter.id) do %>
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						<% end %>
+						<%= link_to destroy_chapter_bookmaking_path(id: chapter.id), :method => :delete, :confirm => 'êtes-vous sur de vouloir supprimer ce chapitre ?' do %>
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						<% end %>
+					</td>
+					<td>
+						<span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
+					</td>
+				</tr>
+				<tr style="display:table-row; display:none;" class="content">
+					<td colspan="4"><%= raw chapter.content %></td>
+				</tr>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+	<%= link_to new_chapter_bookmaking_path, :class => 'btn btn-lg btn-default' do %>
+		<span class="glyphicon glyphicon-plus"></span> Crée un nouveau chapitre
+	<% end %>
+</div>

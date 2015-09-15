@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gamebook</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<nav class="navbar navbar-fixed-top">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <%= link_to ('<span class="bold">Game</span>Book').html_safe, home_path, :class => 'navbar-brand logo' %>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav navbar-right">
+	      	<% if user_signed_in? %>
+	        <li class="navbar-element">
+	        	<%= link_to me_path, :class => 'navbar-element-link' do %>
+	        		<span class="user-name text-capitalize"><%= current_user.username.capitalize %></span>
+	        	<% end %>
+	        </li>
+	        <li class="navbar-element dropdown">
+	          <a href="#" class="dropdown-toggle navbar-element-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <li><%= link_to 'Se déconnecter', destroy_user_session_path, :id => "logout", :method => :delete %></li>
+	          </ul>
+	        </li>
+	        <% else %>
+	        	<li class="navbar-element"><%= link_to 'Se connecter', new_user_session_path, :class => 'navbar-element-link' %></li>
+	        	<li class="navbar-element"><%= link_to 'S\'enregistrer', new_user_registration_path, :class => 'navbar-element-link' %></li>
+	        <% end %>
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+	<header>
+		<div class="logo">
+			<h1><%= link_to ('<span class="bold">Game</span>BOOK').html_safe, home_path %></h1>
+		</div>
+
+		<div class="user-information">
+			<% if user_signed_in? %>
+				<div class="user-menu">
+					<%= link_to me_path do %>
+					<div>
+						<div class="user-image img-circle">
+							<%= image_tag(current_user.profile.avatar.thumb.url, :class => "img-responsive") if current_user.profile.avatar.url %>
+						</div>
+						<span class="user-name text-capitalize"><%= current_user.username.capitalize %></span>
+					</div>
+					<% end %>
+            	</div>
+            	<div class="dropdown">
+					<a href="#" class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+					    <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+					    <li><%= link_to 'Se déconnecter', destroy_user_session_path, :id => "logout", :method => :delete %></li>
+					</ul>
+            	</div>
+			<% else %>
+				<div><%= link_to 'Se connecter', new_user_session_path %></div>
+				<div><%= link_to 'S\'enregistrer', new_user_registration_path %></div>
+			<% end %>
+		</div>
+	</header>
+
+	<div class="menu-left z-depth-2">
+		<div class="padding-top-20 <%= 'active' if controller_name == 'my_library' %>">
+			<%= link_to my_library_index_path do %>
+				<span class="glyphicon glyphicon-book"></span> Ma bibliothèque
+			<% end %>
+		</div>
+		<div class="<%= 'active' if controller_name == 'store' %>">
+			<%= link_to store_index_path do %>
+				<span class="glyphicon glyphicon-shopping-cart"></span> Boutique
+			<% end %>
+		</div>
+		<div class="<%= 'active' if controller_name == 'bookmaking' %>">
+			<%= link_to bookmaking_index_path do %>
+				<span class="glyphicon glyphicon-text-background"></span> Gestionnaire de livre
+			<% end %>
+		</div>
+	</div>
+
+	<div class="container wrapper">
+		<div class="row">
+			<%= yield %>
+		</div>
+
+	</div>
+
+</body>
+</html>

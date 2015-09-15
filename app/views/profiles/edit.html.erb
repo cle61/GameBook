@@ -1,0 +1,13 @@
+<%= form_for(current_user.profile, url: profile_path(​id: current_user.profile.id), html: { method: :put }, id: 'edit_profile_{current_user.profile.id}') do |f| %>
+  <div class="field">
+    <%= f.label :avatar %><br />
+    <%= f.file_field :avatar %><br>
+    <%= image_tag(current_user.profile.avatar.avatar.url) if current_user.profile.avatar.avatar.url %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Mettre à jour !" %>
+  </div>
+<% end %>
+
+<%= link_to 'Retourner a votre profile', me_path %>

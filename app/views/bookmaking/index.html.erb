@@ -1,0 +1,21 @@
+<div class="row padding-top-20">
+	<%= link_to new_bookmaking_path, :class => 'btn btn-lg btn-default' do %>
+		<span class="glyphicon glyphicon-plus"></span> Crée un nouveau livre
+	<% end %>
+</div>
+<div class="row padding-top-20">
+	<% if @books %>
+
+		<% @books.each do |book| %>
+			<div class="col-sm-12 col-md-4 col-lg-4 ">
+				<div class="thumbnail">
+					<img src="#" alt="#image">
+					<div class="caption">
+						<h3 class="bold"><%= link_to book.title, bookmaking_path(id: book.id) %></h3>
+						<p class="text-justify"><%= book.description %></p>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+</div>

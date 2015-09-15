@@ -1,0 +1,46 @@
+<%= tinymce_assets %>
+<div class="row">
+	<div class="text-left col-md-8">
+		<%= form_for(@chapter, url: create_chapter_bookmaking_path(id: @book.id), html: { method: :post }) do |f| %>
+			<div class="row padding-top-20">	
+				<% @chapter.errors.full_messages.each do |msg| %>
+					<%= msg %>
+				<% end %>
+
+				<div class="field">
+					<%= f.label :title %><br />
+					<%= f.text_field :title, class: 'form-control', length: {minimum: 5}, autofocus: true %>
+				</div>
+
+				<div class="field">
+					<%= f.label :nb_chapter %><br>
+					<%= f.text_field :nb_chapter, class: 'form-control' %>
+					<p class="help-block">Numéro du chapitre</em>
+				</div>
+
+				<div class="field">
+					<%= f.label :content %><br />
+					<%= tinymce :chapter %>
+					<%= f.text_area :content, :class => "form-control tinymce", :rows => 20, length: {minimum: 10} %>
+				</div>	
+				
+				<div class="field">
+					<%= f.hidden_field :book_id, :value => @book.id %>
+				</div>
+			</div>
+			<div class="row padding-top-20">
+				<div class="col-md-6 text-left">
+					<div class="actions">
+						<%= f.submit "Enregistrer", :class => 'btn btn-primary' %>
+					</div>
+				</div>
+				<div class="col-md-6 text-right">
+					<%= link_to 'Retour', bookmaking_path(id: @book.id), :class => 'btn btn-default' %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+	<div class="col-md-4 navbar-right">
+		test
+	</div>
+</div>

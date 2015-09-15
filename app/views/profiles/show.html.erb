@@ -1,0 +1,12 @@
+<p>username : <%= @user.username %></p>
+
+<div>
+	<p>Avatar :</p>
+	<%= image_tag(@user.profile.avatar_url(:avatar)) if @user.profile.avatar? %>
+</div>
+
+<%=
+if @user == current_user
+	link_to 'Editer', edit_profile_path(:id => 'me')
+end
+%>
